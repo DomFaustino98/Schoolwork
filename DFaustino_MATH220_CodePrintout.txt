@@ -1,0 +1,69 @@
+//Dominic Faustino
+//Project 1: sequences and series
+
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <vector>
+
+void recursiveForm();
+void explicitForm();
+
+using namespace std;
+
+int squareNum;
+
+int main()
+{
+	
+	recursiveForm();
+	cout << endl;
+	explicitForm();
+
+	system("pause");
+	return 0;
+}
+
+void recursiveForm() {
+	vector<int> vSquares(31, 0);
+	vSquares[0] = 0;
+	vSquares[1] = 1;
+	//0 and 1 values for the vector have been set to avoid errors
+	for (int n = 2; n < 31; n++) //the for loop starts at 2, because the algorithm uses (n-2) and if you were to plug in 0 or 1, the vector would go out of bounds. 
+	{
+		{
+			vSquares[n] = vSquares[n - 2] + (n*n) + 2 * (n - 1) *(n - 1);
+		}
+
+	}
+	cout << "Recursive form for number of squares with number of sides n: " << endl;
+	for (int i = 0; i < 30; i++)
+	{
+		cout << i + 1 << ": " << vSquares[i + 1] << endl; //output each element of the vector for values of squares side lengths 1 - 30
+	}
+}
+
+void explicitForm()
+{
+	int product = 0;
+	int product2 = 0;
+	cout << "Explicit form for number of squares with number of sides n: " << endl;
+	for (int h = 1; h < 31; h++)
+	{
+		int accum = 0;
+		for (int j = h; j > 0; j--)
+		{
+			product = j * j;
+			accum += product;
+		} //This for statement counts the 90 degree squares
+
+		int accum2 = 0;
+		for (int k = (h - 1); k >= 0; k -= 2)
+		{
+			
+			product2 = k * k;
+			accum2 += product2;
+		} //This for statement counts the 45 degree squares
+		cout << h << ": " << (accum + accum2) << endl;
+	}
+}
